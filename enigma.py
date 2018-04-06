@@ -13,9 +13,7 @@ matrix = np.matrix([[1,-2,-1],
 class Enigma():
 
     def __init__(self):
-        self.matrixString = input("Input Key In Format:[[1,1,1],[1,1,1],[1,1,1]] ")
-        if self.matrixString == "": self.matrixString = "[[1,-2,-1],[-1,1,3],[1,-1,4]]"
-        self.matrix = np.matrix(eval(self.matrixString))
+        self.matrix = self.setMatrixKey()
         choice = input("1:Encode 2:Decode ")
 
         if (choice == "1"):
@@ -29,20 +27,40 @@ class Enigma():
 
             self.encode_string(self.phrase)
         if (choice == "2"):
-            self.matricesString = input("Input list of matrices in format: [1,1,1]:[1,1,1] ")
-            self.matrices = self.matricesString.split(":")
-            numberString = ""
-            for matrix in self.matrices:
-                mx = np.matrix(matrix)
-                numberString += np.array2string(np.round(np.abs(mx*self.matrix.I))).replace(".","")
-            numberString = re.findall(r'\b\d+\b',numberString)
-            textString = ""
-            for number in numberString:
-                if (number == "0"):
-                    textString += " "
-                else:
-                    textString += string.ascii_lowercase[int(number)-1]
-            print(textString)
+            self.decode_string()
+
+    def setMatrixKey(self):
+        matrixString = input("Input Key In Format:[[x,x,x],[x,x,x],[x,x,x]] ")
+        mat = np.matrix([])
+        if (matrixString.__len__() < 9):
+            print("Enter Valid Matrix!")
+            self.setMatrixKey()
+        else:
+            try:
+                mat = np.matrix(eval(matrixString))
+            except NameError:
+                print("Enter Valid Matrix")
+                self.setMatrixKey()
+            if mat.shape[0] != mat.shape[1]:
+                print("Non-square Matrix! Check Matrix and Try Again")
+                self.setMatrixKey()
+        return mat
+
+    def decode_string(self):
+        matricesString = input("Input list of matrices in format: [x,x,x]:[x,x,x]:[x,x,x] ")
+        matrices = matricesString.split(":")
+        numberString = ""
+        for matrix in matrices:
+            mx = np.matrix(matrix)
+            numberString += np.array2string(np.round(np.abs(mx * self.matrix.I))).replace(".", "")
+        numberString = re.findall(r'\b\d+\b', numberString)
+        textString = ""
+        for number in numberString:
+            if (number == "0"):
+                textString += " "
+            else:
+                textString += string.ascii_lowercase[int(number) - 1]
+        print(textString)
 
     def encode_string(self,phrase):
         i = 0
@@ -58,6 +76,13 @@ class Enigma():
             encoded += np.array2string(my,separator=",")+":"
         print("Encoded Numbers:"+str(encoded[:-1]))
         print("Key:"+np.array2string(self.matrix,separator=","))
+        f = open("output.txt",'w')
+        f.truncate()
+        f.write("Numbers:"+str(arrays)+"\n")
+        f.write("Encoded Numbers:"+str(encoded[:-1])+"\n")
+        f.write("Key:"+np.array2string(self.matrix,separator=",")+"\n")
+        print("Result saved to output.txt")
+        f.close()
 
 
     def split_list(self,alist, wanted_parts=1):
