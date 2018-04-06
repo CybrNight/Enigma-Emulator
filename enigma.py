@@ -4,6 +4,8 @@
 import numpy as np
 import re
 import string
+#[[1,-1,0],[1,0,-1],[-6,2,3]]
+#[[-5,3,-2]]:[[-126,39,65]]:[[33,-15,-18]]:[[-40,1,27]]:[[-84,20,48]]
 
 w, h = 3, 3
 matrix = np.matrix([[1,-2,-1],
@@ -14,19 +16,20 @@ class Enigma():
 
     def __init__(self):
         self.matrix = self.setMatrixKey()
+        print(self.matrix)
         choice = input("1:Encode 2:Decode ")
 
         if (choice == "1"):
             self.phrase = input("Enter phrase to encode ")
 
-            if (self.phrase.__len__()%self.matrix.__len__() != 0):
-                while (self.phrase.__len__()%self.matrix.__len__() != 0):
+            if self.phrase.__len__()%self.matrix.__len__() != 0:
+                while self.phrase.__len__()%self.matrix.__len__() != 0:
                     self.phrase+=" "
 
             self.encoded = [0 for x in range(self.phrase.__len__())]
 
             self.encode_string(self.phrase)
-        if (choice == "2"):
+        if choice == "2":
             self.decode_string()
 
     def setMatrixKey(self):
@@ -59,7 +62,7 @@ class Enigma():
             if (number == "0"):
                 textString += " "
             else:
-                textString += string.ascii_lowercase[int(number) - 1]
+                textString += string.ascii_lowercase[int(number)-1]
         print(textString)
 
     def encode_string(self,phrase):
@@ -75,7 +78,8 @@ class Enigma():
             my = np.array(mx*self.matrix)
             encoded += np.array2string(my,separator=",")+":"
         print("Encoded Numbers:"+str(encoded[:-1]))
-        f = open("output.txt",'w')
+        filename = input("Enter Name of output file ")
+        f = open(filename+".txt",'w')
         f.truncate()
         f.write("Numbers:"+str(arrays)+"\n")
         f.write("Encoded Numbers:"+str(encoded[:-1])+"\n")
@@ -88,7 +92,7 @@ class Enigma():
         key = "["+out[:-1]+"]"
         print("Key:"+key)
         f.write("Key:"+key)
-        print("Result saved to output.txt")
+        print("Result saved to "+filename+".txt")
         f.close()
 
 
