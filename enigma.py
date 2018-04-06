@@ -75,12 +75,19 @@ class Enigma():
             my = np.array(mx*self.matrix)
             encoded += np.array2string(my,separator=",")+":"
         print("Encoded Numbers:"+str(encoded[:-1]))
-        print("Key:"+np.array2string(self.matrix,separator=","))
         f = open("output.txt",'w')
         f.truncate()
         f.write("Numbers:"+str(arrays)+"\n")
         f.write("Encoded Numbers:"+str(encoded[:-1])+"\n")
-        f.write("Key:"+np.array2string(self.matrix,separator=",")+"\n")
+        out = ""
+        for i in range(self.matrix.__len__()):
+            temp = np.array2string(self.matrix[i],separator=",")
+            temp = temp[:-1]
+            temp = temp[1:]
+            out += temp+","
+        key = "["+out[:-1]+"]"
+        print("Key:"+key)
+        f.write("Key:"+key)
         print("Result saved to output.txt")
         f.close()
 
