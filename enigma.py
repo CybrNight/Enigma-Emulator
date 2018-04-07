@@ -4,8 +4,7 @@
 import numpy as np
 import re
 import string
-#[[1,-1,0],[1,0,-1],[-6,2,3]]
-#[[-5,3,-2]]:[[-126,39,65]]:[[33,-15,-18]]:[[-40,1,27]]:[[-84,20,48]]
+import sys
 
 w, h = 3, 3
 matrix = np.matrix([[1,-2,-1],
@@ -15,6 +14,11 @@ matrix = np.matrix([[1,-2,-1],
 class Enigma():
 
     def __init__(self):
+
+        if (sys.version_info[0] < 3):
+            print("YOU MUST BE USING PYTHON 3.x.x")
+            exit()
+
         self.matrix = self.setMatrixKey()
         print(self.matrix)
         choice = input("1:Encode 2:Decode ")
@@ -41,7 +45,7 @@ class Enigma():
         else:
             try:
                 mat = np.matrix(eval(matrixString))
-            except NameError:
+            except Exception as e:
                 print("Enter Valid Matrix")
                 self.setMatrixKey()
             if mat.shape[0] != mat.shape[1]:
@@ -50,7 +54,7 @@ class Enigma():
         return mat
 
     def decode_string(self):
-        matricesString = input("Input list of matrices in format: [x,x,x]:[x,x,x]:[x,x,x] ")
+        matricesString = input("Input list of matrices in format: [[x,x,x]]:[[x,x,x]]:[[x,x,x]] or [x,x,x]:[x,x,x]:[x,x,x] ")
         matrices = matricesString.split(":")
         numberString = ""
         for matrix in matrices:
