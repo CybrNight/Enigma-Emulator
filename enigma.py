@@ -76,19 +76,21 @@ class Enigma:
             my = np.array(mx*self.matrix)
             encoded += np.array2string(my,separator=",")+":"
         print("Encoded Numbers:"+str(encoded[:-1]))
+
+        out = ""
+        for i in range(self.matrix.__len__()):
+            temp = np.array2string(self.matrix[i], separator=",")
+            temp = temp[:-1]
+            temp = temp[1:]
+            out += temp + ","
+        key = "[" + out[:-1] + "]"
+
+        print("Key:" + key)
         filename = input("Enter Name of output file ")
         f = open(filename+".txt",'w')
         f.truncate()
         f.write("Numbers:"+str(arrays)+"\n")
         f.write("Encoded Numbers:"+str(encoded[:-1])+"\n")
-        out = ""
-        for i in range(self.matrix.__len__()):
-            temp = np.array2string(self.matrix[i],separator=",")
-            temp = temp[:-1]
-            temp = temp[1:]
-            out += temp+","
-        key = "["+out[:-1]+"]"
-        print("Key:"+key)
         f.write("Key:"+key)
         print("Result saved to "+filename+".txt")
         f.close()
