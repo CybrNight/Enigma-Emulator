@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="cad827ba-f91d-4222-a5fa-80ed269ebdec" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/enigma.py" beforeDir="false" afterPath="$PROJECT_DIR$/enigma.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output.txt" afterDir="false" />
     </list>
+=======
+    <list default="true" id="cad827ba-f91d-4222-a5fa-80ed269ebdec" name="Default" comment="" />
+>>>>>>> parent of e6a64ca... Removed unneeded leftovers from debugging and earlier builds
 =======
     <list default="true" id="cad827ba-f91d-4222-a5fa-80ed269ebdec" name="Default" comment="" />
 >>>>>>> parent of e6a64ca... Removed unneeded leftovers from debugging and earlier builds
@@ -22,8 +26,13 @@
         <entry file="file://$PROJECT_DIR$/enigma.py">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state relative-caret-position="189">
               <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
+=======
+            <state relative-caret-position="-661">
+              <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+>>>>>>> parent of e6a64ca... Removed unneeded leftovers from debugging and earlier builds
 =======
             <state relative-caret-position="-661">
               <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
@@ -214,8 +223,13 @@
     <entry file="file://$PROJECT_DIR$/enigma.py">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <state relative-caret-position="189">
           <caret line="40" column="48" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
+=======
+        <state relative-caret-position="-661">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+>>>>>>> parent of e6a64ca... Removed unneeded leftovers from debugging and earlier builds
 =======
         <state relative-caret-position="-661">
           <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
