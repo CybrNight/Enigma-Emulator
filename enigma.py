@@ -6,11 +6,6 @@ import re
 import string
 import sys
 
-w, h = 3, 3
-matrix = np.matrix([[1,-2,-1],
-                    [-1,1,3],
-                    [1,-1,4]])
-
 class Enigma():
 
     def __init__(self):
@@ -20,7 +15,6 @@ class Enigma():
             exit()
 
         self.matrix = self.setMatrixKey()
-        print(self.matrix)
         choice = input("1:Encode 2:Decode ")
 
         if (choice == "1"):
