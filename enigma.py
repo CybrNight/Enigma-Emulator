@@ -1,69 +1,69 @@
-#Written by Nathan Estrada A.K.A CyberNight A.K.A psychic2ombie
-#Free to use
+#Written by Nathan Estrada (psychic2ombie,CyberNight)
 
 import numpy as np
 import re
 import string
 import sys
 
-class Enigma():
+
+class Enigma:
 
     def __init__(self):
 
-        if (sys.version_info[0] < 3):
+        if sys.version_info[0] < 3:
             print("YOU MUST BE USING PYTHON 3.x.x")
             exit()
 
-        self.matrix = self.setMatrixKey()
+        self.matrix = self.set_matrix_key()
         choice = input("1:Encode 2:Decode ")
 
-        if (choice == "1"):
+        if choice == "1":
             self.phrase = input("Enter phrase to encode ")
 
             if self.phrase.__len__()%self.matrix.__len__() != 0:
                 while self.phrase.__len__()%self.matrix.__len__() != 0:
-                    self.phrase+=" "
+                    self.phrase += " "
 
             self.encoded = [0 for x in range(self.phrase.__len__())]
-
-            self.encode_string(self.phrase)
+            self.encode_string()
         if choice == "2":
             self.decode_string()
 
-    def setMatrixKey(self):
-        matrixString = input("Input Key In Format:[[x,x,x],[x,x,x],[x,x,x]] ")
+    def set_matrix_key(self):
+        matrix_string = input("Input Key In Format:[[x,x,x],[x,x,x],[x,x,x]] ")
         mat = np.matrix([])
-        if (matrixString.__len__() < 9):
+        if matrix_string.__len__() < 9:
             print("Enter Valid Matrix!")
-            self.setMatrixKey()
+            self.set_matrix_key()
         else:
             try:
-                mat = np.matrix(eval(matrixString))
+                mat = np.matrix(eval(matrix_string))
             except Exception as e:
                 print("Enter Valid Matrix")
-                self.setMatrixKey()
+                self.set_matrix_key()
             if mat.shape[0] != mat.shape[1]:
                 print("Non-square Matrix! Check Matrix and Try Again")
-                self.setMatrixKey()
+                self.set_matrix_key()
         return mat
 
     def decode_string(self):
-        matricesString = input("Input list of matrices in format: [[x,x,x]]:[[x,x,x]]:[[x,x,x]] or [x,x,x]:[x,x,x]:[x,x,x] ")
-        matrices = matricesString.split(":")
-        numberString = ""
+        matrices_string = input("Input list of matrices in format: [[x,x,x]]:[[x,x,x]]:[[x,x,x]]" +
+                                "or [x,x,x]:[x,x,x]:[x,x,x] ")
+        matrices = matrices_string.split(":")
+        number_string = ""
         for matrix in matrices:
             mx = np.matrix(matrix)
-            numberString += np.array2string(np.round(np.abs(mx * self.matrix.I))).replace(".", "")
-        numberString = re.findall(r'\b\d+\b', numberString)
-        textString = ""
-        for number in numberString:
-            if (number == "0"):
-                textString += " "
+            number_string += np.array2string(np.round(np.abs(mx * self.matrix.I))).replace(".", "")
+        number_string = re.findall(r'\b\d+\b', number_string)
+        text_string = ""
+        for number in number_string:
+            if number == "0":
+                text_string += " "
             else:
-                textString += string.ascii_lowercase[int(number)-1]
-        print(textString)
+                text_string += string.ascii_lowercase[int(number)-1]
+        print(text_string)
 
-    def encode_string(self,phrase):
+    def encode_string(self):
         i = 0
         for l in self.phrase:
             self.encoded[i] = self.convert_char(l)
@@ -93,15 +93,16 @@ class Enigma():
         print("Result saved to "+filename+".txt")
         f.close()
 
-
-    def split_list(self,alist, wanted_parts=1):
+    @staticmethod
+    def split_list(alist, wanted_parts=1):
         length = len(alist)
         return [alist[i * length // wanted_parts: (i + 1) * length // wanted_parts]
             for i in range(wanted_parts)]
 
-    def convert_char(self,old):
+    @staticmethod
+    def convert_char(old):
         if len(old) != 1:
-             return 0
+            return 0
         new = ord(old)
         if 65 <= new <= 90:
             # Upper case letter
@@ -111,5 +112,6 @@ class Enigma():
             return new - 96
         # Unrecognized character
         return 0
+
 
 main = Enigma()
